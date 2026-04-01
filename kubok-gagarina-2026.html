@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кубок Гагарина 2026 — История матчей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ice: #c8e6f0;
+    --ice-dark: #8bbdd4;
+    --blue-deep: #0a1628;
+    --blue-mid: #0d2040;
+    --blue-accent: #1a4a7c;
+    --gold: #e8b84b;
+    --gold-light: #f5d07a;
+    --red: #c0392b;
+    --red-bright: #e74c3c;
+    --white: #f0f4f8;
+    --gray: #6b7a8d;
+    --surface: rgba(13,32,64,0.85);
+    --glow-blue: rgba(26,74,124,0.6);
+    --glow-gold: rgba(232,184,75,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue-deep);
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,74,124,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(10,22,40,0.8) 0%, transparent 60%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(200,230,240,0.015) 60px,
+        rgba(200,230,240,0.015) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 80px,
+        rgba(200,230,240,0.015) 80px,
+        rgba(200,230,240,0.015) 81px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* PARTICLES */
+  #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    5% { opacity: 0.6; }
+    95% { opacity: 0.4; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 80px 20px 60px;
+    overflow: hidden;
+  }
+
+  .header-emblem {
+    font-size: clamp(80px, 15vw, 160px);
+    line-height: 1;
+    animation: pulse-glow 4s ease-in-out infinite;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(232,184,75,0.5));
+  }
+  @keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(232,184,75,0.4)); }
+    50% { filter: drop-shadow(0 0 50px rgba(232,184,75,0.8)) drop-shadow(0 0 80px rgba(232,184,75,0.3)); }
+  }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 10vw, 120px);
+    letter-spacing: 0.08em;
+    line-height: 0.9;
+    background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 40%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    position: relative;
+    display: inline-block;
+    animation: slide-up 1s ease-out both;
+  }
+
+  .header-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 18vw, 200px);
+    letter-spacing: -0.02em;
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,230,240,0.15);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .header-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--ice-dark);
+    margin-top: 12px;
+    text-transform: uppercase;
+    animation: slide-up 1s ease-out 0.3s both;
+  }
+
+  .header-divider {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 30px auto;
+    animation: width-expand 1.5s ease-out 0.5s both;
+  }
+  @keyframes width-expand { from { width: 0; opacity: 0; } to { width: 120px; opacity: 1; } }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+    animation: slide-up 1s ease-out 0.6s both;
+  }
+
+  .stat-item {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(26,74,124,0.4), rgba(13,32,64,0.6));
+    border: 1px solid rgba(200,230,240,0.1);
+    border-radius: 12px;
+    padding: 16px 28px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .stat-item:hover {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(232,184,75,0.1), rgba(26,74,124,0.5));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(232,184,75,0.2);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ice-dark);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* NAVIGATION */
+  .stage-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 30px 20px 10px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .stage-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    padding: 10px 20px;
+    border: 1px solid rgba(200,230,240,0.2);
+    background: transparent;
+    color: var(--ice-dark);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+  .stage-btn:hover, .stage-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(232,184,75,0.08);
+    box-shadow: 0 0 15px rgba(232,184,75,0.2);
+  }
+
+  /* BRACKET SECTION */
+  .bracket-section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.1em;
+    color: var(--ice);
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 8px auto 0;
+  }
+
+  /* BRACKET VISUAL */
+  .bracket-visual {
+    background: linear-gradient(135deg, rgba(13,32,64,0.9), rgba(10,22,40,0.95));
+    border: 1px solid rgba(200,230,240,0.1);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    overflow-x: auto;
+  }
+
+  .bracket-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    min-width: 700px;
+  }
+
+  .bracket-col { display: flex; flex-direction: column; gap: 16px; justify-content: space-around; }
+  .bracket-col-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(232,184,75,0.3);
+    padding-bottom: 8px;
+  }
+
+  .bracket-match {
+    background: rgba(26,74,124,0.25);
+    border: 1px solid rgba(200,230,240,0.12);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .bracket-match:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(232,184,75,0.2);
+  }
+  .bracket-match.winner-left { border-left: 3px solid var(--gold); }
+  .bracket-match.winner-right { border-right: 3px solid var(--gold); }
+  .bracket-match.ongoing { border-color: rgba(200,230,240,0.3); animation: border-pulse 2s ease-in-out infinite; }
+  @keyframes border-pulse {
+    0%, 100% { border-color: rgba(200,230,240,0.3); }
+    50% { border-color: rgba(200,230,240,0.7); box-shadow: 0 0 15px rgba(200,230,240,0.2); }
+  }
+
+  .bracket-team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .bracket-team:first-of-type { border-bottom: 1px solid rgba(200,230,240,0.08); }
+  .bracket-team.winner { color: var(--gold); background: rgba(232,184,75,0.08); }
+  .bracket-team.loser { color: var(--gray); }
+  .bracket-team .score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+  }
+  .bracket-team .score.win { color: var(--gold); }
+  .bracket-team .score.loss { color: var(--gray); }
+  .series-result {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ice-dark);
+    text-align: center;
+    padding: 4px;
+    letter-spacing: 0.15em;
+  }
+  .tbd {
+    color: var(--gray);
+    font-style: italic;
+    font-size: 12px;
+    text-align: center;
+    padding: 16px;
+    letter-spacing: 0.1em;
+  }
+
+  /* SERIES LIST */
+  .series-container {
+    display: none;
+    animation: fade-in 0.4s ease;
+  }
+  .series-container.active { display: block; }
+
+  @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+
+  .conference-section {
+    margin-bottom: 50px;
+  }
+  .conference-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .conference-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(200,230,240,0.2), transparent);
+  }
+  .conference-title.west { color: #4a9eff; }
+  .conference-title.east { color: #ff6b4a; }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+  }
+
+  .series-card {
+    background: linear-gradient(135deg, rgba(13,32,64,0.95), rgba(10,22,40,0.98));
+    border: 1px solid rgba(200,230,240,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: relative;
+  }
+  .series-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .series-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-color: rgba(232,184,75,0.3); }
+  .series-card:hover::before { opacity: 1; }
+
+  .series-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px 0;
+  }
+  .series-round-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ice-dark);
+    text-transform: uppercase;
+    background: rgba(200,230,240,0.08);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .series-status {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .status-done { background: rgba(232,184,75,0.15); color: var(--gold); border: 1px solid rgba(232,184,75,0.3); }
+  .status-live { background: rgba(192,57,43,0.2); color: var(--red-bright); border: 1px solid rgba(231,76,60,0.4); animation: blink 1s ease infinite; }
+  .status-upcoming { background: rgba(200,230,240,0.08); color: var(--ice-dark); border: 1px solid rgba(200,230,240,0.15); }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+  .series-teams {
+    padding: 20px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .team-block { flex: 1; }
+  .team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+  .team-city {
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .vs-score {
+    text-align: center;
+    min-width: 80px;
+  }
+  .series-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+  .series-score .s1 { color: var(--gold); }
+  .series-score .s2 { color: var(--gray); }
+  .series-score .sep { color: rgba(200,230,240,0.3); }
+  .series-score-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--gray);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .series-card-footer {
+    padding: 0 18px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .winner-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .games-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  .view-btn {
+    background: linear-gradient(135deg, rgba(232,184,75,0.15), rgba(232,184,75,0.05));
+    border: 1px solid rgba(232,184,75,0.3);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    padding: 7px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .view-btn:hover { background: rgba(232,184,75,0.25); box-shadow: 0 0 15px rgba(232,184,75,0.3); }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,10,20,0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: linear-gradient(135deg, #0d2040, #0a1628);
+    border: 1px solid rgba(200,230,240,0.15);
+    border-radius: 20px;
+    max-width: 860px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+  .modal::-webkit-scrollbar { width: 4px; }
+  .modal::-webkit-scrollbar-track { background: transparent; }
+  .modal::-webkit-scrollbar-thumb { background: rgba(232,184,75,0.3); border-radius: 2px; }
+
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: rgba(200,230,240,0.1);
+    border: 1px solid rgba(200,230,240,0.2);
+    color: var(--ice);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    z-index: 10;
+    line-height: 1;
+  }
+  .modal-close:hover { background: rgba(231,76,60,0.3); border-color: var(--red-bright); }
+
+  .modal-header {
+    padding: 40px 40px 30px;
+    border-bottom: 1px solid rgba(200,230,240,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .modal-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--blue-accent), var(--gold), var(--blue-accent));
+  }
+
+  .modal-round-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ice-dark);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .modal-teams {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .modal-team { flex: 1; min-width: 120px; }
+  .modal-team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+  .modal-team.team1 .modal-team-name { color: var(--ice); }
+  .modal-team.team2 .modal-team-name { color: var(--ice); text-align: right; }
+  .modal-team-city { font-size: 11px; color: var(--gray); letter-spacing: 0.15em; text-transform: uppercase; }
+  .modal-team.team2 .modal-team-city { text-align: right; }
+
+  .modal-score-center { text-align: center; }
+  .modal-series-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 60px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .modal-series-score .w { color: var(--gold); }
+  .modal-series-score .l { color: var(--gray); }
+  .modal-series-score .d { color: rgba(200,230,240,0.4); }
+  .modal-winner-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* AI Response Area */
+  .modal-body { padding: 30px 40px; }
+
+  .ai-section {
+    background: rgba(26,74,124,0.15);
+    border: 1px solid rgba(200,230,240,0.1);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .ai-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ai-section-title .icon { font-size: 16px; }
+
+  .ai-loading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gray);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    padding: 16px 0;
+  }
+  .loading-dots span {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--ice-dark);
+    border-radius: 50%;
+    animation: dot-bounce 1.2s ease-in-out infinite;
+    margin: 0 2px;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot-bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+
+  .ai-content {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(240,244,248,0.85);
+  }
+  .ai-content strong { color: var(--ice); font-weight: 700; }
+  .ai-content .highlight { color: var(--gold); font-weight: 600; }
+  .ai-content .quote {
+    border-left: 3px solid var(--gold);
+    padding: 10px 16px;
+    margin: 12px 0;
+    background: rgba(232,184,75,0.05);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--ice-dark);
+  }
+  .ai-content .moment {
+    background: rgba(26,74,124,0.3);
+    border: 1px solid rgba(200,230,240,0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .ai-content .moment .time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    min-width: 40px;
+    line-height: 1.2;
+  }
+
+  /* GAMES LIST IN MODAL */
+  .games-list { margin-top: 16px; }
+  .game-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(200,230,240,0.06);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    gap: 10px;
+  }
+  .game-row:hover { background: rgba(232,184,75,0.07); }
+  .game-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    min-width: 30px;
+  }
+  .game-date { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray); min-width: 90px; }
+  .game-score-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+    flex: 1;
+    text-align: center;
+  }
+  .game-venue { font-size: 11px; color: var(--gray); text-align: right; max-width: 140px; line-height: 1.3; }
+  .game-ot { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--red-bright); background: rgba(231,76,60,0.15); padding: 2px 6px; border-radius: 4px; letter-spacing: 0.1em; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 10;
+    border-top: 1px solid rgba(200,230,240,0.08);
+    margin-top: 60px;
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); letter-spacing: 0.2em; }
+  .footer-text { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 0.2em; margin-top: 8px; }
+
+  /* ANIMATIONS */
+  @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  .animate-in { animation: slide-up 0.6s ease-out both; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--blue-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--blue-accent); border-radius: 3px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .modal { border-radius: 12px; }
+    .modal-header, .modal-body { padding: 24px 20px; }
+    .modal-team-name { font-size: 26px; }
+    .modal-series-score { font-size: 40px; }
+    .series-teams { flex-direction: column; gap: 8px; }
+    .vs-score { order: -1; }
+    .modal-teams { flex-direction: column; }
+    .modal-team.team2 .modal-team-name, .modal-team.team2 .modal-team-city { text-align: left; }
+    .bracket-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* INTERESTING FACTS */
+  .facts-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+  }
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .fact-card {
+    background: linear-gradient(135deg, rgba(13,32,64,0.9), rgba(10,22,40,0.95));
+    border: 1px solid rgba(200,230,240,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .fact-card:hover { border-color: rgba(232,184,75,0.3); transform: translateY(-3px); }
+  .fact-card::after {
+    content: attr(data-emoji);
+    position: absolute;
+    right: 16px; top: 16px;
+    font-size: 28px;
+    opacity: 0.3;
+  }
+  .fact-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 8px; }
+  .fact-text { font-size: 13px; line-height: 1.6; color: rgba(240,244,248,0.7); }
+
+  /* TOP SCORERS */
+  .scorers-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+  }
+  .scorers-list { display: flex; flex-direction: column; gap: 10px; }
+  .scorer-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(13,32,64,0.9), rgba(10,22,40,0.95));
+    border: 1px solid rgba(200,230,240,0.08);
+    border-radius: 10px;
+    padding: 14px 20px;
+    transition: all 0.3s;
+  }
+  .scorer-row:hover { border-color: rgba(232,184,75,0.3); background: linear-gradient(135deg, rgba(26,74,124,0.3), rgba(13,32,64,0.95)); }
+  .scorer-rank { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: rgba(200,230,240,0.2); min-width: 36px; }
+  .scorer-rank.gold { color: #ffd700; }
+  .scorer-rank.silver { color: #c0c0c0; }
+  .scorer-rank.bronze { color: #cd7f32; }
+  .scorer-name { flex: 1; font-weight: 700; font-size: 15px; }
+  .scorer-team { font-size: 11px; color: var(--gray); letter-spacing: 0.1em; }
+  .scorer-points {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .scorer-breakdown { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); }
+  .scorer-bar { width: 100%; height: 3px; background: rgba(200,230,240,0.1); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+  .scorer-bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue-accent), var(--gold)); border-radius: 2px; transition: width 1s ease; }
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- HEADER -->
+<header>
+  <div style="position:relative; display:inline-block;">
+    <div class="header-year">2026</div>
+    <span class="header-emblem">🏒</span>
+  </div>
+  <h1 class="header-title">КУБОК ГАГАРИНА</h1>
+  <div class="header-divider"></div>
+  <p class="header-sub">Континентальная Хоккейная Лига · Плей-офф 2025/2026 · 17-й розыгрыш</p>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">16</div>
+    <div class="stat-label">Команд</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Стадии</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">23.03</div>
+    <div class="stat-label">Старт</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">23.05</div>
+    <div class="stat-label">Финал</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="games-played-count">25+</div>
+    <div class="stat-label">Матчей</div>
+  </div>
+</div>
+
+<!-- STAGE NAVIGATION -->
+<div class="stage-nav">
+  <button class="stage-btn active" onclick="showStage('r1')">1/8 Финала</button>
+  <button class="stage-btn" onclick="showStage('qf')">Четвертьфинал</button>
+  <button class="stage-btn" onclick="showStage('sf')">Полуфинал</button>
+  <button class="stage-btn" onclick="showStage('final')">Финал</button>
+  <button class="stage-btn" onclick="showStage('bracket')">🏆 Сетка</button>
+  <button class="stage-btn" onclick="showStage('scorers')">📊 Бомбардиры</button>
+</div>
+
+<!-- BRACKET VIEW -->
+<div class="bracket-section">
+  <div id="bracket-view" class="series-container" style="display:none;">
+    <h2 class="section-title">ТУРНИРНАЯ СЕТКА</h2>
+    <div class="bracket-visual">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:0.2em; margin-bottom:20px; text-align:center;">НАЖМИТЕ НА ПАРУ ДЛЯ ПРОСМОТРА ДЕТАЛЕЙ</div>
+      <div class="bracket-grid">
+        <!-- 1/8 -->
+        <div class="bracket-col">
+          <div class="bracket-col-title">1/8 ФИНАЛА</div>
+          <div class="bracket-match winner-left" onclick="openSeries('loko_spartak')">
+            <div class="bracket-team winner"><span>Локомотив</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>Спартак</span><span class="score loss">0</span></div>
+            <div class="series-result">4-0 · Запад</div>
+          </div>
+          <div class="bracket-match winner-left" onclick="openSeries('din_min_din_m')">
+            <div class="bracket-team winner"><span>Дин. Минск</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>Дин. Москва</span><span class="score loss">0</span></div>
+            <div class="series-result">4-0 · Запад</div>
+          </div>
+          <div class="bracket-match winner-left" onclick="openSeries('torpedo_severstal')">
+            <div class="bracket-team winner"><span>Торпедо</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>Северсталь</span><span class="score loss">1</span></div>
+            <div class="series-result">4-1 · Запад</div>
+          </div>
+          <div class="bracket-match winner-left" onclick="openSeries('cska_ska')">
+            <div class="bracket-team winner"><span>ЦСКА</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>СКА</span><span class="score loss">1</span></div>
+            <div class="series-result">4-1 · Запад</div>
+          </div>
+          <div class="bracket-match winner-left" onclick="openSeries('metallurg_sibir')">
+            <div class="bracket-team winner"><span>Металлург Мг</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>Сибирь</span><span class="score loss">1</span></div>
+            <div class="series-result">4-1 · Восток</div>
+          </div>
+          <div class="bracket-match winner-left" onclick="openSeries('avangard_neftehimik')">
+            <div class="bracket-team winner"><span>Авангард</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>Нефтехимик</span><span class="score loss">1</span></div>
+            <div class="series-result">4-1 · Восток</div>
+          </div>
+          <div class="bracket-match winner-left" onclick="openSeries('akbars_traktor')">
+            <div class="bracket-team winner"><span>Ак Барс</span><span class="score win">4</span></div>
+            <div class="bracket-team loser"><span>Трактор</span><span class="score loss">1</span></div>
+            <div class="series-result">4-1 · Восток</div>
+          </div>
+          <div class="bracket-match ongoing" onclick="openSeries('auto_salavat')">
+            <div class="bracket-team winner"><span>Салават Юл.</span><span class="score win">3</span></div>
+            <div class="bracket-team loser"><span>Автомобилист</span><span class="score loss">2</span></div>
+            <div class="series-result">3-2 · Идёт серия</div>
+          </div>
+        </div>
+        <!-- QF -->
+        <div class="bracket-col">
+          <div class="bracket-col-title">1/4 ФИНАЛА</div>
+          <div class="bracket-match ongoing">
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>Локомотив</span><span class="score">—</span></div>
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>?</span><span class="score">—</span></div>
+            <div class="series-result">Скоро</div>
+          </div>
+          <div class="bracket-match ongoing">
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>Дин. Минск</span><span class="score">—</span></div>
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>Металлург?</span><span class="score">—</span></div>
+            <div class="series-result">Скоро</div>
+          </div>
+          <div class="bracket-match ongoing">
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>ЦСКА</span><span class="score">—</span></div>
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>Авангард?</span><span class="score">—</span></div>
+            <div class="series-result">Скоро</div>
+          </div>
+          <div class="bracket-match ongoing">
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>Торпедо</span><span class="score">—</span></div>
+            <div class="bracket-team" style="color:var(--ice-dark)"><span>Ак Барс?</span><span class="score">—</span></div>
+            <div class="series-result">Скоро</div>
+          </div>
+        </div>
+        <!-- SF -->
+        <div class="bracket-col">
+          <div class="bracket-col-title">ПОЛУФИНАЛ</div>
+          <div class="bracket-match"><div class="tbd">Определяется</div></div>
+          <div class="bracket-match"><div class="tbd">Определяется</div></div>
+        </div>
+        <!-- Final -->
+        <div class="bracket-col">
+          <div class="bracket-col-title">🏆 ФИНАЛ</div>
+          <div class="bracket-match" style="border: 2px solid rgba(232,184,75,0.3); margin-top: 40px;">
+            <div style="padding: 20px; text-align:center;">
+              <div style="font-size: 40px; margin-bottom: 8px;">🏆</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size: 22px; color: var(--gold); letter-spacing:0.1em;">КУБОК ГАГАРИНА</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--gray); margin-top:4px; letter-spacing:0.15em;">23 МАЯ 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R1 SERIES LIST -->
+  <div id="r1-view" class="series-container active">
+    <h2 class="section-title">1/8 ФИНАЛА — ПЕРВЫЙ РАУНД</h2>
+    <p style="text-align:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gray); margin-bottom:30px; letter-spacing:0.15em;">23 МАРТА — 1 АПРЕЛЯ 2026</p>
+
+    <div class="conference-section">
+      <h3 class="conference-title west">🔵 ЗАПАДНАЯ КОНФЕРЕНЦИЯ</h3>
+      <div class="series-grid">
+        <!-- Series cards West -->
+        <div class="series-card" onclick="openSeries('loko_spartak')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Запад · #1 vs #8</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Локомотив</div>
+              <div class="team-city">Ярославль</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">0</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Спартак</div>
+              <div class="team-city">Москва</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: Локомотив</div>
+            <div class="games-count">4 матча</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+
+        <div class="series-card" onclick="openSeries('din_min_din_m')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Запад · #2 vs #7</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Динамо Минск</div>
+              <div class="team-city">Минск</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">0</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Динамо Москва</div>
+              <div class="team-city">Москва</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: Дин. Минск</div>
+            <div class="games-count">4 матча</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+
+        <div class="series-card" onclick="openSeries('torpedo_severstal')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Запад · #3 vs #6</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Торпедо</div>
+              <div class="team-city">Нижний Новгород</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">1</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Северсталь</div>
+              <div class="team-city">Череповец</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: Торпедо</div>
+            <div class="games-count">5 матчей</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+
+        <div class="series-card" onclick="openSeries('cska_ska')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Запад · #4 vs #5</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">ЦСКА</div>
+              <div class="team-city">Москва</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">1</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">СКА</div>
+              <div class="team-city">Санкт-Петербург</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: ЦСКА</div>
+            <div class="games-count">5 матчей</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conference-section">
+      <h3 class="conference-title east">🔴 ВОСТОЧНАЯ КОНФЕРЕНЦИЯ</h3>
+      <div class="series-grid">
+        <div class="series-card" onclick="openSeries('metallurg_sibir')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Восток · #1 vs #8</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Металлург Мг</div>
+              <div class="team-city">Магнитогорск</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">1</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Сибирь</div>
+              <div class="team-city">Новосибирск</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: Металлург</div>
+            <div class="games-count">5 матчей</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+
+        <div class="series-card" onclick="openSeries('avangard_neftehimik')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Восток · #2 vs #7</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Авангард</div>
+              <div class="team-city">Омск</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">1</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Нефтехимик</div>
+              <div class="team-city">Нижнекамск</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: Авангард</div>
+            <div class="games-count">5 матчей</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+
+        <div class="series-card" onclick="openSeries('akbars_traktor')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Восток · #3 vs #6</span>
+            <span class="series-status status-done">Завершена</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Ак Барс</div>
+              <div class="team-city">Казань</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">4</span><span class="sep">–</span><span class="s2">1</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Трактор</div>
+              <div class="team-city">Челябинск</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge">🏆 Победитель: Ак Барс</div>
+            <div class="games-count">5 матчей</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+
+        <div class="series-card" onclick="openSeries('auto_salavat')">
+          <div class="series-card-header">
+            <span class="series-round-tag">1/8 · Восток · #4 vs #5</span>
+            <span class="series-status status-live">🔴 Идёт серия</span>
+          </div>
+          <div class="series-teams">
+            <div class="team-block">
+              <div class="team-name" style="color:var(--gold)">Салават Юл.</div>
+              <div class="team-city">Уфа</div>
+            </div>
+            <div class="vs-score">
+              <div class="series-score"><span class="s1">3</span><span class="sep">–</span><span class="s2">2</span></div>
+              <div class="series-score-label">в серии</div>
+            </div>
+            <div class="team-block" style="text-align:right">
+              <div class="team-name" style="color:var(--gray)">Автомобилист</div>
+              <div class="team-city">Екатеринбург</div>
+            </div>
+          </div>
+          <div class="series-card-footer">
+            <div class="winner-badge" style="color:var(--red-bright)">⚡ Следующий матч: 2 апреля</div>
+            <div class="games-count">5 матчей сыграно</div>
+          </div>
+          <div style="padding: 0 18px 14px;"><button class="view-btn">Подробнее →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QF VIEW -->
+  <div id="qf-view" class="series-container" style="display:none;">
+    <h2 class="section-title">ЧЕТВЕРТЬФИНАЛ — 1/4 ФИНАЛА</h2>
+    <div style="text-align:center; padding: 60px 20px;">
+      <div style="font-size:50px; margin-bottom:20px;">⏳</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--ice-dark); letter-spacing:0.1em;">ФОРМИРУЕТСЯ</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--gray); margin-top:12px; letter-spacing:0.2em;">СТАРТ ОЖИДАЕТСЯ ПОСЛЕ 1 АПРЕЛЯ 2026</div>
+      <div style="margin-top:30px; font-size:13px; color:var(--ice-dark); max-width:500px; margin:30px auto 0; line-height:1.8;">
+        Начиная с четвертьфинала вводится <strong style="color:var(--gold)">перекрёстный плей-офф</strong> — команды с Запада сыграют с командами с Востока. Лучшая команда Запада встретится со второй Востока, и так далее.
+      </div>
+    </div>
+  </div>
+
+  <!-- SF VIEW -->
+  <div id="sf-view" class="series-container" style="display:none;">
+    <h2 class="section-title">ПОЛУФИНАЛ</h2>
+    <div style="text-align:center; padding: 60px 20px;">
+      <div style="font-size:50px; margin-bottom:20px;">🔮</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--ice-dark); letter-spacing:0.1em;">ВПЕРЕДИ</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--gray); margin-top:12px; letter-spacing:0.2em;">АПРЕЛЬ — МАЙ 2026</div>
+    </div>
+  </div>
+
+  <!-- FINAL VIEW -->
+  <div id="final-view" class="series-container" style="display:none;">
+    <h2 class="section-title">ФИНАЛ КУБКА ГАГАРИНА</h2>
+    <div style="text-align:center; padding: 60px 20px;">
+      <div style="font-size:80px; margin-bottom:20px; animation:pulse-glow 3s ease-in-out infinite;">🏆</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--gold); letter-spacing:0.1em;">КУБОК ГАГАРИНА</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--gray); margin-top:12px; letter-spacing:0.2em;">23 МАЯ 2026 — ТБД</div>
+    </div>
+  </div>
+
+  <!-- SCORERS VIEW -->
+  <div id="scorers-view" class="series-container" style="display:none;">
+    <h2 class="section-title">ТОП БОМБАРДИРЫ ПЛЕЙ-ОФФ</h2>
+    <p style="text-align:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gray); margin-bottom:30px; letter-spacing:0.15em;">ПО ДАННЫМ НА 31 МАРТА 2026</p>
+    <div class="scorers-section">
+      <div class="scorers-list">
+        <div class="scorer-row">
+          <div class="scorer-rank gold">1</div>
+          <div>
+            <div class="scorer-name">Александр Радулов</div>
+            <div class="scorer-team">Локомотив · Ярославль</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:100%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">7</div>
+            <div class="scorer-breakdown">4г + 3п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank gold">1</div>
+          <div>
+            <div class="scorer-name">Даниэль Спронг</div>
+            <div class="scorer-team">Автомобилист · Екатеринбург</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:100%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">7</div>
+            <div class="scorer-breakdown">4г + 3п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank silver">3</div>
+          <div>
+            <div class="scorer-name">Николай Прохоркин</div>
+            <div class="scorer-team">Авангард · Омск</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">5</div>
+            <div class="scorer-breakdown">3г + 2п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank silver">3</div>
+          <div>
+            <div class="scorer-name">Александр Волков</div>
+            <div class="scorer-team">Авангард · Омск</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">5</div>
+            <div class="scorer-breakdown">2г + 3п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank bronze">5</div>
+          <div>
+            <div class="scorer-name">Дмитрий Яшкин</div>
+            <div class="scorer-team">Ак Барс · Казань</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:65%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">4</div>
+            <div class="scorer-breakdown">2г + 2п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">6</div>
+          <div>
+            <div class="scorer-name">Степан Хрипунов</div>
+            <div class="scorer-team">Автомобилист · Екатеринбург</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:55%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">3</div>
+            <div class="scorer-breakdown">3г + 0п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">6</div>
+          <div>
+            <div class="scorer-name">Максим Кузнецов</div>
+            <div class="scorer-team">Салават Юлаев · Уфа</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:55%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">3</div>
+            <div class="scorer-breakdown">3г + 0п</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">6</div>
+          <div>
+            <div class="scorer-name">Вячеслав Шипачёв</div>
+            <div class="scorer-team">Динамо Минск</div>
+            <div class="scorer-bar"><div class="scorer-bar-fill" style="width:55%"></div></div>
+          </div>
+          <div style="text-align:right">
+            <div class="scorer-points">3</div>
+            <div class="scorer-breakdown">1г + 2п</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FACTS SECTION -->
+<div class="facts-section" id="facts-section">
+  <h2 class="section-title">ИНТЕРЕСНЫЕ ФАКТЫ</h2>
+  <div class="facts-grid">
+    <div class="fact-card" data-emoji="⚡">
+      <div class="fact-title">Самый быстрый гол в истории КГ</div>
+      <div class="fact-text">Артём Галимов забил шайбу в первые <strong>7 секунд</strong> матча — абсолютный рекорд в истории плей-офф КХЛ.</div>
+    </div>
+    <div class="fact-card" data-emoji="📈">
+      <div class="fact-title">Рекорд Никитина</div>
+      <div class="fact-text">Главный тренер ЦСКА Игорь Никитин установил новый рекорд КХЛ по числу <strong>побед в плей-офф</strong> среди тренеров.</div>
+    </div>
+    <div class="fact-card" data-emoji="🧤">
+      <div class="fact-title">Шатаут Билялова</div>
+      <div class="fact-text">Тимур Билялов установил новый <strong>бомбардирский рекорд</strong> для вратарей в КХЛ — уникальное достижение.</div>
+    </div>
+    <div class="fact-card" data-emoji="😲">
+      <div class="fact-title">Сенсация из Минска</div>
+      <div class="fact-text">Минское «Динамо» прошло московское «Динамо» в серии <strong>4-0</strong>, выиграв решающий матч в двойном овертайме.</div>
+    </div>
+    <div class="fact-card" data-emoji="🐊">
+      <div class="fact-title">Отмена двух голов Спартака</div>
+      <div class="fact-text">В серии «Спартак» — «Локомотив» были отменены <strong>два гола</strong> москвичей после видеопросмотра по запросу штаба «Локо».</div>
+    </div>
+    <div class="fact-card" data-emoji="🔥">
+      <div class="fact-title">Торпедо: камбэк с 0:2</div>
+      <div class="fact-text">«Торпедо» в пятой игре уступало «Северстали» 0:2 на 59-й минуте, но сумело <strong>отыграться и победить</strong>.</div>
+    </div>
+    <div class="fact-card" data-emoji="🏒">
+      <div class="fact-title">17-й розыгрыш</div>
+      <div class="fact-text">Кубок Гагарина 2026 — <strong>17-й по счёту</strong> главный трофей КХЛ. «Металлург» участвует в плей-офф уже <strong>18-й</strong> раз подряд.</div>
+    </div>
+    <div class="fact-card" data-emoji="🌍">
+      <div class="fact-title">Посещаемость</div>
+      <div class="fact-text">Минское «Динамо», «Авангард» и «Сибирь» вошли в <strong>топ-10 самых посещаемых клубов Европы</strong> в этом сезоне.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalByOverlay(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">🏒 КХЛ · КУБОК ГАГАРИНА 2026</div>
+  <div class="footer-text">Плей-офф · 23 Марта — 23 Мая 2026 · Контент создан с помощью ИИ</div>
+</footer>
+
+<script>
+// PARTICLES
+const container = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 3 + 1;
+  p.style.cssText = `
+    width: ${size}px;
+    height: ${size}px;
+    left: ${Math.random() * 100}%;
+    animation-duration: ${Math.random() * 15 + 10}s;
+    animation-delay: ${Math.random() * 10}s;
+  `;
+  container.appendChild(p);
+}
+
+// STAGE NAVIGATION
+function showStage(stage) {
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  ['r1','qf','sf','final','bracket','scorers'].forEach(s => {
+    const el = document.getElementById(s + '-view');
+    if (el) el.style.display = 'none';
+  });
+  const el = document.getElementById(stage + '-view');
+  if (el) { el.style.display = 'block'; el.classList.add('active'); }
+}
+
+// SERIES DATA
+const seriesData = {
+  loko_spartak: {
+    team1: 'Локомотив', city1: 'Ярославль',
+    team2: 'Спартак', city2: 'Москва',
+    score1: 4, score2: 0,
+    winner: 'Локомотив',
+    round: '1/8 ФИНАЛА · ЗАПАДНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '2:1 ОТ', venue: 'Арена 2000, Ярославль', ot: 'ОТ' },
+      { num: 2, date: '25 мар', score: '3:2', venue: 'Мегаспорт, Москва', ot: null },
+      { num: 3, date: '27 мар', score: '4:3 ОТ', venue: 'Арена 2000, Ярославль', ot: 'ОТ' },
+      { num: 4, date: '30 мар', score: '2:0', venue: 'Мегаспорт, Москва', ot: null },
+    ],
+    context: `Серия "Локомотив" vs "Спартак" — традиционное дерби столичной и ярославской команд в первом раунде. "Локомотив" под руководством Боба Хартли доминировал на протяжении всей серии. Самым громким скандалом стала отмена двух голов "Спартака" в четвёртом матче после запросов штаба "Локомотива" на видеопросмотр. Ярославцы выиграли серию в 4 матчах без труда, подтвердив статус одного из главных фаворитов западной конференции. Александр Радулов стал лидером атак, набирая очки в каждой встрече.`
+  },
+  din_min_din_m: {
+    team1: 'Дин. Минск', city1: 'Минск',
+    team2: 'Дин. Москва', city2: 'Москва',
+    score1: 4, score2: 0,
+    winner: 'Дин. Минск',
+    round: '1/8 ФИНАЛА · ЗАПАДНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '3:1', venue: 'Минск-Арена', ot: null },
+      { num: 2, date: '25 мар', score: '4:2', venue: 'ВТБ Арена, Москва', ot: null },
+      { num: 3, date: '28 мар', score: '3:2', venue: 'Минск-Арена', ot: null },
+      { num: 4, date: '30 мар', score: '2:1 ОТ2', venue: 'ВТБ Арена, Москва', ot: '2ОТ' },
+    ],
+    context: `Главная сенсация западной конференции: минское "Динамо" уничтожило московских одноклубников в серии 4-0. Решающий матч завершился только во втором овертайме — победный гол забил Станислав Галиев. После серии тренер Козлов признал: "Проект 'Динамо' изжил себя". Вячеслав Шипачёв был одним из лидеров минчан, а сам клуб из Беларуси прошёл в топ-10 посещаемых команд Европы.`
+  },
+  torpedo_severstal: {
+    team1: 'Торпедо', city1: 'Нижний Новгород',
+    team2: 'Северсталь', city2: 'Череповец',
+    score1: 4, score2: 1,
+    winner: 'Торпедо',
+    round: '1/8 ФИНАЛА · ЗАПАДНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '3:2 ОТ', venue: 'Ледовый дворец, Череповец', ot: 'ОТ' },
+      { num: 2, date: '25 мар', score: '2:5', venue: 'Нагорная, Н.Новгород', ot: null },
+      { num: 3, date: '27 мар', score: '4:3 ОТ', venue: 'Ледовый дворец, Череповец', ot: 'ОТ' },
+      { num: 4, date: '29 мар', score: '3:2 2ОТ', venue: 'Нагорная, Н.Новгород', ot: '2ОТ' },
+      { num: 5, date: '31 мар', score: '4:3', venue: 'Ледовый дворец, Череповец', ot: null },
+    ],
+    context: `Эта серия подарила, пожалуй, лучший момент первого раунда: в пятом матче "Торпедо" проигрывало 0:2 на 59-й минуте, но за 60 секунд дважды поразило ворота "Северстали" и победило в овертайме! Алексей Исаков стал героем нижегородцев. Тренер нижегородцев сдержанно прокомментировал: победителей выявили выносливость и боевой дух.`
+  },
+  cska_ska: {
+    team1: 'ЦСКА', city1: 'Москва',
+    team2: 'СКА', city2: 'Санкт-Петербург',
+    score1: 4, score2: 1,
+    winner: 'ЦСКА',
+    round: '1/8 ФИНАЛА · ЗАПАДНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '2:1 ОТ', venue: 'ЦСКА-Арена, Москва', ot: 'ОТ' },
+      { num: 2, date: '25 мар', score: '1:3', venue: 'СКА Арена, СПб', ot: null },
+      { num: 3, date: '27 мар', score: '4:2', venue: 'ЦСКА-Арена, Москва', ot: null },
+      { num: 4, date: '29 мар', score: '4:2', venue: 'СКА Арена, СПб', ot: null },
+      { num: 5, date: '31 мар', score: '6:2', venue: 'ЦСКА-Арена, Москва', ot: null },
+    ],
+    context: `Главная дуэль первого раунда на Западе: ЦСКА против СКА. Никитин против Ларионова. В первом матче армейцы выиграли в овертайме, во втором питерцы отквитались. Дальше ЦСКА набрал ход — и в пятом матче разгромил СКА 6:2, окончательно похоронив надежды Ларионова. Тренер Никитин установил рекорд КХЛ по числу побед в плей-офф. Ларионов раскритиковал судейство: "Масса вопросов", а после серии не скрывал разочарования.`
+  },
+  metallurg_sibir: {
+    team1: 'Металлург Мг', city1: 'Магнитогорск',
+    team2: 'Сибирь', city2: 'Новосибирск',
+    score1: 4, score2: 1,
+    winner: 'Металлург',
+    round: '1/8 ФИНАЛА · ВОСТОЧНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '4:1', venue: 'Арена Металлург, Магнитогорск', ot: null },
+      { num: 2, date: '25 мар', score: '5:2', venue: 'Сибирь-Арена, Новосибирск', ot: null },
+      { num: 3, date: '27 мар', score: '4:2', venue: 'Арена Металлург, Магнитогорск', ot: null },
+      { num: 4, date: '30 мар', score: '0:1 2ОТ', venue: 'Сибирь-Арена, Новосибирск', ot: '2ОТ' },
+      { num: 5, date: '1 апр', score: '?:?', venue: 'Арена Металлург, Магнитогорск', ot: null },
+    ],
+    context: `Металлург — чемпион прошлого сезона и бессменный участник всех плей-офф КХЛ (18-й раз). В четвёртом матче "Сибирь" зацепилась за победу в двойном овертайме благодаря голу Косолапова на последних секундах. Разин эмоционально возмущался судейством. Тем не менее "Магнитка" ведёт 3-1 и уверенно движется в следующий раунд.`
+  },
+  avangard_neftehimik: {
+    team1: 'Авангард', city1: 'Омск',
+    team2: 'Нефтехимик', city2: 'Нижнекамск',
+    score1: 4, score2: 1,
+    winner: 'Авангард',
+    round: '1/8 ФИНАЛА · ВОСТОЧНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '2:1', venue: 'Арена Омск', ot: null },
+      { num: 2, date: '26 мар', score: '3:4 2ОТ', venue: 'Арена Омск', ot: '2ОТ' },
+      { num: 3, date: '28 мар', score: '2:1', venue: 'Нефтехим-Арена, Нижнекамск', ot: null },
+      { num: 4, date: '30 мар', score: '5:2', venue: 'Нефтехим-Арена, Нижнекамск', ot: null },
+      { num: 5, date: '1 апр', score: '?:?', venue: 'Арена Омск', ot: null },
+    ],
+    context: `Серия началась со скандала: в первых матчах обе команды устраивали потасовки прямо с первых смен. Во втором матче "Нефтехимик" феноменально сравнял счёт в серии, победив во втором овертайме. Форвард гостей Профака признался: "Нефтехимик договорился бы с футбольным Газмясом." В итоге опыт Авангарда взял своё — дубли Волкова и Прохоркина в четвёртой игре вывели "ястребов" на финишную прямую.`
+  },
+  akbars_traktor: {
+    team1: 'Ак Барс', city1: 'Казань',
+    team2: 'Трактор', city2: 'Челябинск',
+    score1: 4, score2: 1,
+    winner: 'Ак Барс',
+    round: '1/8 ФИНАЛА · ВОСТОЧНАЯ КОНФЕРЕНЦИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '3:1', venue: 'Татнефть-Арена, Казань', ot: null },
+      { num: 2, date: '25 мар', score: '4:2', venue: 'Татнефть-Арена, Казань', ot: null },
+      { num: 3, date: '27 мар', score: '2:4', venue: 'Арена Трактор, Челябинск', ot: null },
+      { num: 4, date: '29 мар', score: '3:2 2ОТ', venue: 'Татнефть-Арена, Казань', ot: '2ОТ' },
+      { num: 5, date: '31 мар', score: '2:1 ОТ', venue: 'Татнефть-Арена, Казань', ot: 'ОТ' },
+    ],
+    context: `Финалист прошлого сезона "Трактор" оказался не в лучшей форме. Гатиятулин жёстко раскритиковал соперника: "у них только первое звено сильное". Три из пяти матчей серии завершились в овертаймах — и все три взял "Ак Барс". Решающий гол в пятой игре на последней минуте забил Дмитрий Яшкин, реализовав большинство. Карпухин отличился курьёзом: во время матча у него прямо на лёд упал пульсометр.`
+  },
+  auto_salavat: {
+    team1: 'Салават Юл.', city1: 'Уфа',
+    team2: 'Автомобилист', city2: 'Екатеринбург',
+    score1: 3, score2: 2,
+    winner: null,
+    round: '1/8 ФИНАЛА · ВОСТОЧНАЯ КОНФЕРЕНЦИЯ · ИДЁТ СЕРИЯ',
+    games: [
+      { num: 1, date: '23 мар', score: '0:2', venue: 'УГМК-Арена, Екатеринбург', ot: null },
+      { num: 2, date: '25 мар', score: '1:0', venue: 'УГМК-Арена, Екатеринбург', ot: null },
+      { num: 3, date: '27 мар', score: '4:3', venue: 'Уфа-Арена', ot: null },
+      { num: 4, date: '29 мар', score: '5:2', venue: 'Уфа-Арена', ot: null },
+      { num: 5, date: '31 мар', score: '2:5', venue: 'УГМК-Арена, Екатеринбург', ot: null },
+    ],
+    context: `Самая напряжённая серия первого раунда! "Автомобилист" начал с победы 2:0 (дубль Спронга), но "Салават" развернул ход серии. В третьем матче Максим Кузнецов забил победный гол на 58-й минуте. В четвёртом — Кузнецов оформил дубль, а команда Козлова уверенно выиграла 5:2. Хет-трик Хрипунова в пятой игре позволил "Автомобилисту" сократить отставание до 2-3. Маскота "Салавата" не пустили на арену в Екатеринбурге — что вызвало ажиотаж в соцсетях. Шестой матч — 2 апреля в Уфе!`
+  }
+};
+
+function openSeries(id) {
+  const data = seriesData[id];
+  if (!data) return;
+
+  const gamesHTML = data.games.map(g => `
+    <div class="game-row" onclick="loadGameDetail(${JSON.stringify(g).replace(/"/g, '&quot;')}, '${data.team1}', '${data.team2}')">
+      <div class="game-num">${g.num}</div>
+      <div class="game-date">${g.date}</div>
+      <div class="game-score-display">${g.score} ${g.ot ? `<span class="game-ot">${g.ot}</span>` : ''}</div>
+      <div class="game-venue">${g.venue}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-header">
+      <div class="modal-round-tag">${data.round}</div>
+      <div class="modal-teams">
+        <div class="modal-team team1">
+          <div class="modal-team-name">${data.team1}</div>
+          <div class="modal-team-city">${data.city1}</div>
+        </div>
+        <div class="modal-score-center">
+          <div class="modal-series-score">
+            <span class="w">${data.score1}</span>
+            <span class="d">–</span>
+            <span class="l">${data.score2}</span>
+          </div>
+          <div class="modal-winner-text">${data.winner ? '🏆 ПОБЕДИТЕЛЬ: ' + data.winner : '⚡ СЕРИЯ ПРОДОЛЖАЕТСЯ'}</div>
+        </div>
+        <div class="modal-team team2">
+          <div class="modal-team-name">${data.team2}</div>
+          <div class="modal-team-city">${data.city2}</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="ai-section">
+        <div class="ai-section-title"><span class="icon">📋</span> ОБЗОР СЕРИИ</div>
+        <div class="ai-content">${data.context}</div>
+      </div>
+
+      <div class="ai-section">
+        <div class="ai-section-title"><span class="icon">🏒</span> МАТЧИ СЕРИИ</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--gray); letter-spacing:0.15em; margin-bottom:10px;">НАЖМИТЕ НА МАТЧ ДЛЯ ПОДРОБНОСТЕЙ (AI)</div>
+        <div class="games-list">${gamesHTML}</div>
+      </div>
+
+      <div class="ai-section" id="game-detail-section" style="display:none;">
+        <div class="ai-section-title"><span class="icon">🤖</span> ДЕТАЛЬНЫЙ РАЗБОР МАТЧА <span style="font-size:10px; color:var(--gray); font-family:'JetBrains Mono',monospace; font-weight:400; letter-spacing:0.1em;">(AI)</span></div>
+        <div id="game-detail-content"></div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+async function loadGameDetail(game, team1, team2) {
+  const section = document.getElementById('game-detail-section');
+  const content = document.getElementById('game-detail-content');
+  section.style.display = 'block';
+  section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  content.innerHTML = `
+    <div class="ai-loading">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <span>Анализирую матч с помощью ИИ...</span>
+    </div>
+  `;
+
+  try {
+    const prompt = `Ты спортивный журналист, специализирующийся на хоккее КХЛ. Напиши подробный разбор матча Кубка Гагарина 2026.
+
+Матч: ${team1} vs ${team2}
+Счёт: ${game.score} (${game.ot || 'основное время'})
+Дата: ${game.date} 2026
+Арена: ${game.venue}
+Игра №${game.num} серии
+
+Пожалуйста, включи:
+1. **КЛЮЧЕВЫЕ МОМЕНТЫ** — 3-4 конкретных игровых момента с примерными временными метками
+2. **СОСТАВЫ** — примерные ключевые игроки обеих команд (можешь использовать реальных хоккеистов из этих клубов)
+3. **ЦИТАТЫ** — 2 цитаты (от тренеров или игроков) в контексте матча
+4. **ИТОГ** — краткий вывод по матчу
+
+Используй HTML-форматирование: <strong> для акцентов, классы "quote" для цитат, "moment" + "time" для моментов.
+Отвечай на русском языке. Будь конкретным и живым.`;
+
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content.map(i => i.text || '').join('\n');
+
+    content.innerHTML = `<div class="ai-content">${text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>')
+    }</div>`;
+
+  } catch (err) {
+    content.innerHTML = `<div class="ai-content" style="color:var(--gray);">
+      <p>Не удалось загрузить AI-анализ. Ниже — краткие сведения о матче:</p>
+      <br>
+      <strong>${team1} vs ${team2}</strong> · ${game.score} ${game.ot ? '(' + game.ot + ')' : ''}
+      <br>Дата: ${game.date} 2026 · ${game.venue}
+    </div>`;
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalByOverlay(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Animate series cards on load
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationDelay = (i * 0.08) + 's';
+      entry.target.classList.add('animate-in');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.series-card, .fact-card, .scorer-row').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
